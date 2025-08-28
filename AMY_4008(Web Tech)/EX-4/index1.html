@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Appliance Registration</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(to bottom, #2c3e50, #1a1a2e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(30, 40, 55, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #3498db;
+            position: relative;
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #3498db;
+            text-shadow: 2px 2px 0 #2c3e50;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #ecf0f1;
+            margin-bottom: 10px;
+        }
+        .form-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #3498db;
+            margin-bottom: 20px;
+        }
+        .form-section h2 {
+            color: #3498db;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #3498db;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #ecf0f1;
+            font-size: 0.9rem;
+        }
+        .requirement {
+            font-size: 0.75rem;
+            color: #e74c3c;
+            margin-top: 3px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #3498db;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 15px;
+            color: #2c3e50;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 8px #3498db;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: none;
+        }
+        button {
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 25px auto 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to bottom, #3cb0fd, #3498db);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        .success-message {
+            text-align: center;
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-top: 20px;
+            display: none;
+        }
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        .password-hint {
+            font-size: 0.75rem;
+            color: #7f8c8d;
+            margin-top: 3px;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 10px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Home Appliance Registration</h1>
+            <p class="subtitle">Register your appliance for warranty and support services</p>
+        </header>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <form id="applianceForm">
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                <div class="form-group">
+                    <label for="fullName" class="required">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="e.g., JOHN DOE">
+                    <div class="requirement">Only capital letters, no symbols allowed</div>
+                    <div class="error" id="fullNameError">Please enter a valid name (capital letters only, no symbols)</div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="required">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="example@domain.com">
+                    <div class="error" id="emailError">Please enter a valid email address</div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="required">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="1234567890" maxlength="10">
+                    <div class="requirement">10 digits only, no characters</div>
+                    <div class="error" id="phoneError">Please enter a valid 10-digit phone number</div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="required">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••" maxlength="10">
+                    <div class="password-hint">Password will appear as hyphens when typed</div>
+                    <div class="requirement">6-10 characters</div>
+                    <div class="error" id="passwordError">Password must be between 6-10 characters</div>
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Appliance Details</h2>
+                <div class="form-group">
+                    <label for="applianceType" class="required">Appliance Type</label>
+                    <select id="applianceType" name="applianceType">
+                        <option value="">Select Appliance Type</option>
+                        <option value="refrigerator">Refrigerator</option>
+                        <option value="washing_machine">Washing Machine</option>
+                        <option value="oven">Oven/Microwave</option>
+                        <option value="ac">Air Conditioner</option>
+                        <option value="tv">Television</option>
+                        <option value="other">Other Appliance</option>
+                    </select>
+                    <div class="error" id="applianceTypeError">Please select an appliance type</div>
+                </div>
+                <div class="form-group">
+                    <label for="brand" class="required">Brand</label>
+                    <input type="text" id="brand" name="brand" placeholder="e.g., Samsung, LG">
+                    <div class="error" id="brandError">Please enter the brand name</div>
+                </div>
+                <div class="form-group">
+                    <label for="model" class="required">Model Number</label>
+                    <input type="text" id="model" name="model" placeholder="Model number">
+                    <div class="error" id="modelError">Please enter the model number</div>
+                </div>
+                <div class="form-group">
+                    <label for="purchaseDate" class="required">Purchase Date</label>
+                    <input type="date" id="purchaseDate" name="purchaseDate" required max="2025-12-31">
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Warranty Information</h2>
+                <div class="form-group">
+                    <label for="warrantyType" class="required">Warranty Type</label>
+                    <select id="warrantyType" name="warrantyType">
+                        <option value="">Select Warranty Type</option>
+                        <option value="standard">Standard (1 Year)</option>
+                        <option value="extended">Extended (2-3 Years)</option>
+                        <option value="premium">Premium (5 Years)</option>
+                    </select>
+                    <div class="error" id="warrantyTypeError">Please select warranty type</div>
+                </div>
+                <div class="form-group">
+                    <label for="warrantyNumber">Warranty Card Number</label>
+                    <input type="text" id="warrantyNumber" name="warrantyNumber" placeholder="Warranty number if available">
+                </div>
+                <div class="form-group">
+                    <label for="serialNumber" class="required">Serial Number</label>
+                    <input type="text" id="serialNumber" name="serialNumber" placeholder="Appliance serial number" required pattern="[A-Za-z0-9]{5,15}">
+                    <div class="error" id="serialNumberError">Please enter a valid serial number (5-15 alphanumeric characters)</div>
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>Additional Information</h2>
+                <div class="form-group">
+                    <label for="issueType">Primary Use Case</label>
+                    <select id="issueType" name="issueType">
+                        <option value="">Select Usage</option>
+                        <option value="personal">Personal Use</option>
+                        <option value="commercial">Commercial Use</option>
+                        <option value="rental">Rental Property</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="problem">Describe Any Current Issues</label>
+                    <textarea id="problem" name="problem" rows="3" placeholder="Describe any problems you're experiencing"></textarea>
+                    <div class="error" id="problemError">Description cannot exceed 200 characters</div>
+                </div>
+                <div class="form-group">
+                    <label for="newsletter">
+                        <input type="checkbox" id="newsletter" name="newsletter" style="width: auto; margin-right: 8px;">
+                        Send me maintenance tips and product updates
+                    </label>
+                </div>
+            </div>
+            <button type="submit">Submit Registration</button>
+            <div class="success-message" id="successMessage">
+                ✅ Thank you for registering! We'll take quick action on your request.
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('applianceForm');
+            const progressBar = document.getElementById('progressBar');
+            window.addEventListener('scroll', updateProgressBar);
+            function updateProgressBar() {
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight - windowHeight;
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollPercent = (scrollTop / documentHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }
+            document.getElementById('fullName').addEventListener('input', function(e) {
+                this.value = this.value.toUpperCase().replace(/[^A-Z\s]/g, '');
+            });
+            document.getElementById('phone').addEventListener('input', function(e) {
+                this.value = this.value.replace(/\D/g, '');
+            });
+            document.getElementById('problem').addEventListener('input', function() {
+                const problemError = document.getElementById('problemError');
+                if (this.value.length > 200) {
+                    problemError.style.display = 'block';
+                } else {
+                    problemError.style.display = 'none';
+                }
+            });
+            document.getElementById('fullName').addEventListener('blur', function() {
+                const nameRegex = /^[A-Z\s]+$/;
+                if (!nameRegex.test(this.value) || this.value.trim().length < 3) {
+                    document.getElementById('fullNameError').style.display = 'block';
+                } else {
+                    document.getElementById('fullNameError').style.display = 'none';
+                }
+            });
+            document.getElementById('email').addEventListener('blur', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(this.value)) {
+                    document.getElementById('emailError').style.display = 'block';
+                } else {
+                    document.getElementById('emailError').style.display = 'none';
+                }
+            });
+            document.getElementById('phone').addEventListener('blur', function() {
+                if (!/^\d{10}$/.test(this.value)) {
+                    document.getElementById('phoneError').style.display = 'block';
+                } else {
+                    document.getElementById('phoneError').style.display = 'none';
+                }
+            });
+            document.getElementById('password').addEventListener('blur', function() {
+                if (this.value.length < 6 || this.value.length > 10) {
+                    document.getElementById('passwordError').style.display = 'block';
+                } else {
+                    document.getElementById('passwordError').style.display = 'none';
+                }
+            });
+            document.getElementById('serialNumber').addEventListener('blur', function() {
+                const serialRegex = /^[A-Za-z0-9]{5,15}$/;
+                if (!serialRegex.test(this.value)) {
+                    document.getElementById('serialNumberError').style.display = 'block';
+                } else {
+                    document.getElementById('serialNumberError').style.display = 'none';
+                }
+            });
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                const fullName = document.getElementById('fullName');
+                const nameRegex = /^[A-Z\s]+$/;
+                if (!nameRegex.test(fullName.value) || fullName.value.trim().length < 3) {
+                    document.getElementById('fullNameError').style.display = 'block';
+                    isValid = false;
+                }
+                const email = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    document.getElementById('emailError').style.display = 'block';
+                    isValid = false;
+                }
+                const phone = document.getElementById('phone');
+                if (!/^\d{10}$/.test(phone.value)) {
+                    document.getElementById('phoneError').style.display = 'block';
+                    isValid = false;
+                }
+                const password = document.getElementById('password');
+                if (password.value.length < 6 || password.value.length > 10) {
+                    document.getElementById('passwordError').style.display = 'block';
+                    isValid = false;
+                }
+                const applianceType = document.getElementById('applianceType');
+                if (applianceType.value === '') {
+                    document.getElementById('applianceTypeError').style.display = 'block';
+                    isValid = false;
+                }
+                const brand = document.getElementById('brand');
+                if (brand.value.trim() === '') {
+                    document.getElementById('brandError').style.display = 'block';
+                    isValid = false;
+                }
+                const model = document.getElementById('model');
+                if (model.value.trim() === '') {
+                    document.getElementById('modelError').style.display = 'block';
+                    isValid = false;
+                }
+                const warrantyType = document.getElementById('warrantyType');
+                if (warrantyType.value === '') {
+                    document.getElementById('warrantyTypeError').style.display = 'block';
+                    isValid = false;
+                }
+                if (isValid) {
+                    document.getElementById('successMessage').style.display = 'block';
+                    form.reset();
+                    progressBar.style.width = '0%';
+                }
+            });
+            
+            updateProgressBar();
+        });
+    </script>
+</body>
+</html>
