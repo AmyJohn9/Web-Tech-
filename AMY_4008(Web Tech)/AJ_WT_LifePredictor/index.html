@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Expectancy Predictor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Life Expectancy Predictor</h1>
+        
+        <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group">
+            <label for="age">Your Age:</label>
+            <input type="number" id="age" placeholder="Enter your age">
+        </div>
+        
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="lifestyle">Lifestyle:</label>
+            <select id="lifestyle">
+                <option value="active">Active</option>
+                <option value="moderate">Moderate</option>
+                <option value="sedentary">Sedentary</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Select 5 Food Items You Regularly Eat:</label>
+            <div class="food-buttons">
+                <button class="food-btn" data-food="vegetables" data-energy="10" data-toxic="0">
+                    <i class="fas fa-carrot"></i> Vegetables
+                </button>
+                <button class="food-btn" data-food="fruits" data-energy="8" data-toxic="0">
+                    <i class="fas fa-apple-alt"></i> Fruits
+                </button>
+                <button class="food-btn" data-food="grains" data-energy="7" data-toxic="1">
+                    <i class="fas fa-bread-slice"></i> Whole Grains
+                </button>
+                <button class="food-btn" data-food="meat" data-energy="5" data-toxic="3">
+                    <i class="fas fa-drumstick-bite"></i> Red Meat
+                </button>
+                <button class="food-btn" data-food="poultry" data-energy="6" data-toxic="2">
+                    <i class="fas fa-drumstick-bite"></i> Poultry
+                </button>
+                <button class="food-btn" data-food="fish" data-energy="8" data-toxic="1">
+                    <i class="fas fa-fish"></i> Fish
+                </button>
+                <button class="food-btn" data-food="sweets" data-energy="2" data-toxic="8">
+                    <i class="fas fa-candy-cane"></i> Sweets
+                </button>
+                <button class="food-btn" data-food="processed" data-energy="1" data-toxic="9">
+                    <i class="fas fa-cheese"></i> Processed Foods
+                </button>
+                <button class="food-btn" data-food="fastfood" data-energy="1" data-toxic="10">
+                    <i class="fas fa-hamburger"></i> Fast Food
+                </button>
+                <button class="food-btn" data-food="sugarydrinks" data-energy="0" data-toxic="10">
+                    <i class="fas fa-wine-bottle"></i> Sugary Drinks
+                </button>
+            </div>
+            <div class="selected-count">
+                Selected: <span id="selected-count">0</span>/5
+            </div>
+        </div>
+        
+        <button id="predict-btn">Predict My Life Expectancy</button>
+        
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+            <div id="avatar">👤</div>
+        </div>
+        
+        <div id="result"></div>
+        
+        <div id="gif-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
